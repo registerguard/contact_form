@@ -1,0 +1,14 @@
+Hello. This is an automated response.
+
+Thank you for your announcement information for the 
+{{ bride_name_last }}-{{ groom_name_last }} wedding with the photo file
+{{ photo_name }} attached. It was successfully received.
+
+A reminder that wedding announcements are printed as space allows and that 
+the size of the newspaper fluctuates up until the day of publication. Please 
+know that every effort is made to publish notices in a timely manner.
+
+And congratulations on your wedding!
+
+Regards,
+The Register-Guard

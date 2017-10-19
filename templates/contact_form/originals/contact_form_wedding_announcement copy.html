@@ -1,0 +1,120 @@
+{% extends "contact_form/contact_form.html" %}
+{# {% extends "dox/bulldog.html" %} #}
+
+{% block title %}Complimentary Wedding Announcement form | {% endblock %}
+
+{% block css %}
+{{ block.super }}
+{{ form.media }}
+<style type="text/css">
+<!--
+fieldset .fm #fm_subscribe_bride_home_phone, 
+fieldset .fm #fm_subscribe_bride_work_phone,
+fieldset .fm #fm_subscribe_groom_home_phone,
+fieldset .fm #fm_subscribe_groom_work_phone,
+fieldset .fm #fm_subscribe_brides_mother_day_phone,
+fieldset .fm #fm_subscribe_brides_father_day_phone,
+fieldset .fm #fm_subscribe_grooms_mother_day_phone,
+fieldset .fm #fm_subscribe_grooms_father_day_phone,
+fieldset .fm #fm_subscribe_wedding_date {
+	width: 25%;
+}
+
+fieldset .fm  #fm_subscribe_bride_name_first,
+fieldset .fm  #fm_subscribe_bride_name_last,
+fieldset .fm  #fm_subscribe_groom_name_first,
+fieldset .fm  #fm_subscribe_groom_name_last {
+	width: 33%;
+}
+
+ul li {
+	list-style: none;
+}
+
+/* For Safari */
+fieldset .fm label ul li input {
+	width: auto;
+	border: none;
+}
+
+/* For Firefox */
+fieldset .fm ul li label input {
+	width: auto;
+	border: none;
+}
+-->
+</style>
+
+{% endblock %}
+
+{% block home %}: Forms: Complimentary Wedding Announcement{% endblock %}
+
+{% block content %}
+<div id="primary" class="c630 fl mr10">
+<!-- ##### BEGIN PRIMARY COLUMN ##### -->
+	
+	<div class="nw bgfff"><div class="ne"><div class="se"><div class="sw">
+		<p>
+			On Sundays, The Register-Guard prints accounts of weddings in the Oregon Life section. A photograph of the bride and bridegroom together may accompany the story. Photos of the bride only will not be accepted. On the form, use complete names &mdash; no nicknames. Give the first name of the woman as well as the man when listing couples and parents. <u><b>Check all spellings</b></u>.
+		<p>
+			To qualify for publication, either the bride or bridegroom must reside in the newspaper's circulation area, or have parents who live here. It is imperative that you include a phone number where you can be reached during the day.The wedding announcement form should be submitted within 90 days of the ceremony. It will be published as soon as possible.
+		</p>
+		<p>
+			The Register-Guard continues to offer paid Celebrations advertisements that the bride and groom or family members write themselves. For more information about paid wedding announcements, contact Wendy Carole at 541-683-7612.
+		</p>
+		
+		{% if form.errors %}<p><em><span class="warning">Note: Please correct the error{{ form.errors|pluralize }} below.</span></em></p>{% endif %}
+		
+		<form id="fm_wedding_announcement" enctype="multipart/form-data" action="" method="POST">
+			{% csrf_token %}
+			<fieldset>
+				<p><b>Attention:</b> <span class="required">*</span> indicates a required field.</p>
+				{% for field in form %}
+					{% if not field.is_hidden %}
+						<div class="fm{% if field.field.required %} req{% endif %}">
+							<label for="fm_subscribe_{{field.name}}" style="display: block;">{% if field.field.required %}<span class="required">*</span> {% endif %}{{ field.label }}:
+							{% if field.errors %}<br/>
+								{% for error in field.errors %}
+									<span class="warning" style="display: inline;">{{ error }}</span>
+								{% endfor %}
+							{% endif %}
+							{% if field.help_text %}<br/>
+								<span class="paren">{{ field.help_text }}</span>
+							{% endif %}
+							{{ field }}
+							</label>
+						</div>
+					{% endif %}
+				{% endfor %}
+				
+				<div class="horizRule"></div>
+				
+				{{ html_captcha }}
+				
+				<div class="horizRule"></div>
+				
+				<div class="submit">
+					<input id="fm_subscribe_submit" type="submit" title="form" value="Submit" name="Submit" />&nbsp;<input type="reset" id="fm_subscribe_reset" name="Reset" value="Reset" title="Reset form">
+				</div>
+			</fieldset>
+		</form>
+	</div></div></div></div> <!-- /.nw -->
+	
+<!-- ##### END PRIMARY COLUMN ##### -->
+</div> <!-- /#primary /.c630 fl mr10-->
+
+<script type="text/javascript"> 
+  $(function(){
+    $("#fm_subscribe_wedding_date").datepicker({
+            changeMonth: true,
+            maxDate: '0d',
+            minDate: '-4m',
+            dateFormat: 'yy-mm-dd'
+        }).closest('body').find('#ui-datepicker-div').wrap('<div id="fm_wedding_announcement"></div>');
+  });
+
+  document.getElementById('fm_subscribe_email').focus()
+
+</script>
+
+{% endblock %}

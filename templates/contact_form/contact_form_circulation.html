@@ -1,0 +1,178 @@
+{% extends "contact_form/contact_form.html" %}
+
+{% block content %}
+<div id="primary" class="c630 fl mr10">
+<!-- ##### BEGIN PRIMARY COLUMN ##### -->
+			
+			<div class="clear">
+				{% ssi /rgforum/assets/v3/inc/django/circulation_vert_nav.html %}
+				<div class="c502 fl">
+				<h3 class="sep">Delivery Opportunity application form</h3>
+					<div class="se bgfff"><div class="sw">
+						<p>If you live in the Eugene-Springfield area, you may apply by calling The Register-Guard Circulation Department at 485-3311. All others may apply by calling toll-free, 1-800-377-7428, or by filling out the form below.</p>
+						<form id="fm_subscribe" action="{% url delivery_contact_form %}" method="POST">
+							<div class="formed">
+								<div class="toggle">
+									<fieldset>
+										<p><b>Attention:</b> <span class="required">*</span> indicates a required field.</p>
+										
+										{% comment %}
+										<!-- Another ways to present the form: -->
+										{{ form.as_p }}
+										
+										<!-- Another ways to present the form: -->
+										{% for field in form %}
+											<div class="fm{% if field.field.required %} req{% endif %}">
+												<label for="fm_subscribe_{{field.name}}">{% if field.field.required %}<span class="required">*</span> {% endif %}{{ field.label }}:
+												{% if field.errors %}<br/>
+													{% for error in form.name.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+												{{ field }}
+												</label>
+											</div>
+										{% endfor %}
+										{% endcomment %}
+										
+										<div class="pseudoLegend">
+											<h5>Personal information</h5>
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_name">
+												<span class="required">*</span>
+												{{ form.name.label }}:
+												{% if form.name.errors %}<br/>
+													{% for error in form.name.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.name }}
+										</div>
+										<div class="pseudoLegend">
+											<h5>Address</h5>
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_address">
+												<span class="required">*</span>
+												{{ form.address.label }}:
+												{% if form.address.errors %}<br/>
+													{% for error in form.address.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.address }}
+										</div>
+										<div class="fm">
+											<label for="fm_subscribe_apt_no">
+												{{ form.apt_no.label }}:
+											</label>
+											{{ form.apt_no }}
+										</div>
+										<div class="fm">
+											<label for="fm_subscribe_po_box">
+												{{ form.po_box.label }}:
+											</label>
+											{{ form.po_box }}
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_city">
+												<span class="required">*</span>
+												{{ form.city.label }}:
+												{% if form.city.errors %}<br/>
+													{% for error in form.city.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.city }}
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_zip">
+												<span class="required">*</span>
+												{{ form.zip.label }}:
+												{% if form.zip.errors %}<br/>
+													{% for error in form.zip.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.zip }}
+										</div>
+										<div class="pseudoLegend">
+											<h5>Contact information</h5>
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_telephone">
+												<span class="required">*</span>
+												{{ form.telephone.label }}:
+												{% if form.telephone.errors %}<br/>
+													{% for error in form.telephone.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.telephone }}
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_email">
+												<span class="required">*</span>
+												{{ form.email.label }}:<br/>
+												<span class="paren">(This e-mail address will only be used to contact you, so accuracy counts.)</span>
+												{% if form.email.errors %}<br/>
+													{% for error in form.email.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.email }}
+										</div>
+										<div class="pseudoLegend">
+											<h5>Type of route you're interested in</h5>
+										</div>
+										<div class="fm req">
+											<label for="fm_subscribe_route_type">
+												<span class="required">*</span>
+												{{ form.route_type.label }}:
+												{% if form.route_type.errors %}<br/>
+													{% for error in form.route_type.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.route_type }}
+										</div>
+										<div class="fm">
+											<label for="fm_subscribe_body">
+												{{ form.body.label }}
+												{% if form.body.errors %}<br/>
+													{% for error in form.body.errors %}
+														<span class="warning" style="display: inline;">{{ error }}</span>
+													{% endfor %}
+												{% endif %}
+											</label>
+											{{ form.body }}
+										</div>
+										
+										<div class="horizRule"></div>
+										
+										{{ html_captcha }}
+										
+										<div class="horizRule"></div>
+										
+										<div class="submit">
+											<input id="fm_subscribe_submit" type="submit" title="form" value="Submit" name="Submit" />&nbsp;<input type="reset" id="fm_subscribe_reset" name="Reset" value="Reset" title="Reset form">
+										</div>
+									</fieldset>
+								</div>
+							</div>
+						</form>
+					</div></div> <!-- /.se -->
+				</div> <!-- /.c470 -->
+			
+			</div> <!-- /.clear -->
+<!-- ##### END PRIMARY COLUMN ##### -->
+</div> <!-- /#primary /.c630 fl mr10-->
+{% endblock %}

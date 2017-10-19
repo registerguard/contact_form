@@ -1,0 +1,73 @@
+{% autoescape off %}Project Group: {{ bride_name_last|lower }}-{{ groom_name_last|lower }}
+Story Name: wd.{{ bride_name_last|lower }}-{{ groom_name_last|lower }}.adv
+Photo Name: wd.{{ bride_name_last|lower }}-{{ groom_name_last|lower }}.adv.{{ org_ext }}
+
+{{ bride_name_first }} {{ bride_name_last }} and {{ groom_name_first }} {{ groom_name_last }}, of [hers/his:{{ bride_city }}] [his/hers:{{ groom_city }}], were married {{ wedding_date }} at {{ wedding_location }}.
+The bride/partner A is the daughter/son of {{ brides_father_name }} of {{ brides_father_city }}, {{ brides_father_state }}, and {{ brides_mother_name }} of {{ brides_mother_city }}, {{ brides_mother_state }}. The groom/partner B is the son/daughter of {{ grooms_father_name }} of {{ grooms_father_city }}, {{ grooms_father_state }}, and {{ grooms_mother_name }} of {{ grooms_mother_city }}, {{ grooms_mother_state }}.
+The couple live in {{ couples_future_home }}. She/he is a {{ brides_occupation }}, and she/he is a {{ grooms_occupation }}.
+
+Contact information
+======= ===========
+
+Comments: {{ comments }}
+
+Sent by: {{ email }}
+
+Bride/partner A
+===============
+{{ bride_name_first }} {{ bride_name_last }}
+Work: {{ bride_work_phone }}
+Home: {{ bride_home_phone }}
+City: {{ bride_city }}
+State: {{ bride_state }}
+
+Occupation: {{ brides_occupation }}
+
+Parents divorced? {{ brides_parents_married }}
+Mother deceased? {{ brides_mother_living }}
+Father deceased? {{ brides_father_living }}
+
+Mother's name (and spouse if remarried): {{ brides_mother_name }}
+Mother's city: {{ brides_mother_city }}
+Mother's state: {{ brides_mother_state }}
+Mother's day phone: {{ brides_mother_day_phone }}
+
+Father's name (and spouse if remarried): {{ brides_father_name }}
+Father's city: {{ brides_father_city }}
+Father's state: {{ brides_father_state }}
+Father's day phone: {{ brides_father_day_phone }}
+
+Groom/partner B
+===============
+{{ groom_name_first }} {{ groom_name_last }}
+Work: {{ groom_work_phone }}
+Home: {{ groom_home_phone }}
+City: {{ groom_city }}
+State: {{ groom_state }}
+
+Occupation: {{ grooms_occupation }}
+
+Parents divorced? {{ grooms_parents_married }}
+Mother deceased? {{ grooms_mother_living }}
+Father deceased? {{ grooms_father_living }}
+
+Mother's name (and spouse if remarried): {{ grooms_mother_name }}
+Mother's city: {{ grooms_mother_city }}
+Mother's state: {{ grooms_mother_state }}
+Mother's day phone: {{ grooms_mother_day_phone }}
+
+Father's name (and spouse if remarried): {{ grooms_father_name }}
+Father's city: {{ grooms_father_city }}
+Father's state: {{ grooms_father_state }}
+Father's day phone: {{ grooms_father_day_phone }}
+
+Wedding date: {{ wedding_date }}
+Wedding location: {{ wedding_location }}
+Couple's future home: {{ couples_future_home }}
+Bride/partner A will use maiden name? {{ bride_maiden_name }}
+Last name hyphenated? {{ last_name_hyphenated }}
+	If so, this is how: {{ hyphenation }}
+	Hyphenation used by: {{ hyphenation_who }}
+
+Photo file name as submitted by user: {{ photo.name }}
+{% endautoescape %}
