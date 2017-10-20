@@ -1,12 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import urllib
+import urllib2
+import json
+
 from django import forms
 from django.forms import widgets
 from django.contrib.localflavor.us.forms import USStateField, USStateSelect, USPhoneNumberField, USZipCodeField
 from django.conf import settings
 from django.forms.fields import Select
 from django.forms.util import ErrorList
+from django.utils.translation import ugettext as _
 from contact_form.forms import ContactForm
 
 import datetime
@@ -94,20 +99,11 @@ class CalendarWidget(forms.DateInput):
         )
 
 class WeddingForm(ContactForm):
-    recipient_list = [
-    'john.heasly@registerguard.com', 
-    'rob.denton@registerguard.com', 
-    'weddings@registerguard.com',
-#     'cjw@registerguard.com',
-#     'carl.davaz@registerguard.com', 
-#     'chris.frisella@registerguard.com', 
-#     'jan.lafeman@registerguard.com', 
-#     'ian.doremus@registerguard.com',
-    ]
-    
+    from recipients import WEDDING_FORM_RECIPIENTS as recipient_list
+
     subject_template_name = 'contact_form/contact_form_wedding_subject.txt'
     template_name =         'contact_form/contact_form_wedding.txt'
-    
+
     YES_NO = (
         (True, 'Yes',),
         (False, 'No',),
@@ -242,6 +238,27 @@ class WeddingForm(ContactForm):
             
             self.cleaned_data['org_ext'] = image.name.split('.')[-1]
             return image
+
+    def clean(self):
+        super(WeddingForm, self).clean()
+
+        # test the Google reCaptcha
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.RECAPTCHA_PRIVATE_KEY,
+            'response': self.request.POST.get(u'g-recaptcha-response', None),
+            'remoteip': self.request.META.get('REMOTE_ADDR', None),
+        }
+        data = urllib.urlencode(values)
+        req = urllib2.Request(url, data)
+        response = urllib2.urlopen(req)
+        result = json.loads(response.read())
+
+        # result['success'] will be True (on a success)
+        if not result['success']:
+            raise forms.ValidationError(_(u'Only humans are allowed to submit this form.'))
+
+        return self.cleaned_data
 
 class EnhancedSplitDateTimeWidget(forms.SplitDateTimeWidget):
     def __init__(self, attrs=None):

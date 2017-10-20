@@ -69,26 +69,30 @@ def contact_form(request, form_class=ContactForm,
         return redirect_to_login(request.path)
     
     if request.method == 'POST':
-        # Check the captcha
-        check_captcha = captcha.submit(request.POST['recaptcha_challenge_field'], request.POST['recaptcha_response_field'], settings.RECAPTCHA_PRIVATE_KEY, request.META['REMOTE_ADDR'])
         form = form_class(data=request.POST, files=request.FILES, request=request, auto_id='fm_subscribe_%s', *args, **kwargs)
-        if check_captcha.is_valid is False:
-            # Captcha is wrong show a error ...
-            html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY, error = check_captcha.error_code)
-            return render_to_response(template_name,
-                              { 'form': form, 'html_captcha': html_captcha, },
-                              context_instance=RequestContext(request))
+        # if check_captcha.is_valid is False:
+        #     # Captcha is wrong show a error ...
+        #     html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY, error = check_captcha.error_code)
+        #     return render_to_response(template_name,
+        #                       { 'form': form, 'html_captcha': html_captcha, },
+        #                       context_instance=RequestContext(request))
         if form.is_valid():
             form.save(fail_silently=fail_silently)
             return HttpResponseRedirect(success_url)
-        html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY)
+        # html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY)
     else:
         form = form_class(request=request, auto_id='fm_subscribe_%s')
-        html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY)
+        # html_captcha = captcha.displayhtml(settings.RECAPTCHA_PUB_KEY)
     
-    return render_to_response(template_name,
-                              { 'form': form, 'html_captcha': html_captcha, },
-                              context_instance=RequestContext(request))
+    return render_to_response(
+        template_name,
+        {
+            'form': form,
+            # 'html_captcha': html_captcha,
+            'google_recaptcha_site_key': settings.RECAPTCHA_PUB_KEY,
+        },
+        context_instance=RequestContext(request)
+    )
 
 def flag_comment_form(request, form_class=ContactForm,
                  template_name='contact_form/contact_form.html',

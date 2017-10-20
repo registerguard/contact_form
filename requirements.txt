@@ -1,0 +1,3 @@
+IPTCInfo==1.9.5.post6
+-e git+https://github.com/praekelt/django-recaptcha.git@c517e598fae65ae440349cfd55943515db49a0a6#egg=django_recaptcha
+recaptcha-client==1.0.6

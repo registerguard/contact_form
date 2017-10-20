@@ -1,5 +1,4 @@
 {% extends "dox/bulldog.html" %}
-{# {% extends "contact_form/contact_form.html" %} #}
 
 {% block head_title %}Complimentary Wedding Announcement form {% endblock %}
 
@@ -48,7 +47,7 @@ div.ui-datepicker{
  font-size: 12px;
 }
 
-.required, .warning {
+.required, .warning, .errorlist {
 	color: red;
 }
 
@@ -80,7 +79,7 @@ var RecaptchaOptions = {
 			To qualify for publication, either the bride/partner A or bridegroom/partner B must reside in the newspaper's circulation area, or have parents who live here. It is imperative that you include a phone number where you can be reached during the day.The wedding announcement form should be submitted within 90 days of the ceremony. It will be published as soon as possible.
 		</p>
 		<p>
-			The Register-Guard continues to offer paid Celebrations advertisements that the bride/partner A and groom/partner B or family members write themselves. For more information about paid wedding announcements, contact Wendy Carole at 541-683-7612.
+			The Register-Guard continues to offer paid Celebrations advertisements that the bride/partner A and groom/partner B or family members write themselves. For more information about paid wedding announcements, contact Classified Advertising at 541-342-1212.
 		</p>
 		
 		{% if form.errors %}<p><em><span class="warning">Note: Please correct the error{{ form.errors|pluralize }} below.</span></em></p>{% endif %}
@@ -106,13 +105,11 @@ var RecaptchaOptions = {
 						</div>
 					{% endif %}
 				{% endfor %}
-				
-				<div class="horizRule"></div>
-				
-				{{ html_captcha|safe }}
-				
-				<div class="horizRule"></div>
-				
+
+				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+				<div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" style="margin: 10px 0"></div>
+				{{ form.non_field_errors }}
+
 				<div class="submit">
 					<input id="fm_subscribe_submit" type="submit" title="form" value="Submit" name="Submit" />&nbsp;<input type="reset" id="fm_subscribe_reset" name="Reset" value="Reset" title="Reset form">
 				</div>
@@ -126,7 +123,6 @@ var RecaptchaOptions = {
 {% endblock %}
 
 {% block footer_extra %}
-{# <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> #}
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.min.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script> 
